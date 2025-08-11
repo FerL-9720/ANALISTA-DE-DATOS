@@ -37,64 +37,62 @@ THRON/
 2. **Configura los diccionarios** en `config.py` si necesitas agregar nuevos estados, municipios o variantes.
 3. **Ejecuta el script principal**:
 
-   ```bash
-   python filter.py
-   ```
 
-   Esto generará los archivos `clientes_filtrados.xlsx` y `propiedades_filtradas.xlsx` con los datos limpios.
+  # FILTRADO
 
-4. **Explora y analiza** los datos con el notebook `CLEANING.ipynb` para tareas interactivas y reportes personalizados.
+  Este proyecto está diseñado para el procesamiento de datos de clientes y propiedades en el contexto de rentas, permitiendo filtrar, limpiar, transformar y exportar información relevante. A continuación se detalla la función de cada archivo y el flujo de trabajo recomendado.
 
----
+  ## Archivos principales y su función
 
-## Principales módulos y funciones
+  - **clientes_ids.txt**: Archivo de texto donde se guardan los IDs de clientes procesados. Permite llevar control de los clientes ya filtrados y detectar nuevos.
 
-- **config.py**  
-  Define listas y diccionarios de estados válidos, municipios y variantes para la normalización.
-- **limpieza.py**  
-  Funciones para limpiar y normalizar texto (acentos, espacios, mayúsculas/minúsculas).
+  - **propiedades_ids.txt**: Archivo de texto donde se guardan los IDs de propiedades procesadas. Permite llevar control de las propiedades ya filtradas y detectar nuevas.
 
-- **estados.py**  
-  Funciones para identificar, corregir y reportar estados y municipios en los datos.
+  - **config.py**: Contiene diccionarios y listas de referencia, como estados válidos, variantes de estados y mapeo de municipios a estados. Es la base para la normalización y validación de datos geográficos.
 
-- **exporta.py**  
-- **Modularización:** Cada archivo tiene una responsabilidad clara.
-- **Normalización robusta:** Corrige acentos, errores de dedo, variantes y municipios.
-- **Reportes automáticos:** Imprime en consola los registros no identificados con su ID para fácil revisión.
-- **Exportación profesional:** Archivos Excel listos para uso administrativo.
-- **Facilidad de mantenimiento:** Solo actualiza los diccionarios para mejorar la limpieza.
+  - **estados.py**: Proporciona funciones para filtrar y corregir los valores de estado y municipio en los DataFrames, detectando variantes y normalizando los datos. Utiliza la configuración definida en `config.py` y funciones de limpieza de texto.
 
----
+  - **exporta.py**: Permite exportar los DataFrames filtrados y procesados a archivos Excel, seleccionando las columnas relevantes. Incluye mensajes de confirmación para el usuario.
 
-## Ejemplo de reporte de registros no identificados
+  - **filtro.py**: Script principal que coordina la carga de datos, filtrado de clientes y propiedades, registro de nuevos IDs, limpieza y corrección de estados, transformación de columnas y exportación final. Es el punto de entrada recomendado para el procesamiento completo.
 
-Al ejecutar el script, verás en consola:
+  - **limpieza.py**: Incluye funciones para limpiar y normalizar texto, eliminando acentos, caracteres especiales y espacios innecesarios. Es fundamental para la estandarización previa al filtrado y transformación.
 
-```
---- Registros NO identificados en columna 'estado' ---
-ID: 714 | Valor original: 'houston texas' | Normalizado: 'no identificado (houston texas)'
-ID: 715 | Valor original: 'nan' | Normalizado: 'no identificado'
---- Fin de registros no identificados ---
-```
+  - **transformaciones.py**: Aplica transformaciones específicas a los DataFrames, como la conversión de valores numéricos a etiquetas legibles (por ejemplo, "EN VENTA", "FIDEICOMISO", "Física", "Moral") y la normalización de estados adicionales.
 
-Esto te permite identificar rápidamente qué registros requieren revisión manual o actualización de los diccionarios.
+  - **utils_filtrado.py**: Contiene utilidades para el filtrado, como registro de nuevos clientes y propiedades en logs, eliminación de columnas y registros de prueba, lectura y escritura de archivos de IDs, y funciones auxiliares para el flujo de trabajo.
 
----
+  - **__pycache__/**: Carpeta generada automáticamente por Python para almacenar archivos compilados. No requiere intervención manual.
 
-## Requisitos
+  ## Flujo de trabajo recomendado
 
-- Python 3.8+
-- pandas
-- unicodedata (incluido en la librería estándar)
+  1. **Preparar archivos de IDs**: Verifica que `clientes_ids.txt` y `propiedades_ids.txt` estén actualizados o vacíos si es la primera ejecución.
+  2. **Configurar parámetros**: Revisa y ajusta los diccionarios y listas en `config.py` según los estados y municipios relevantes para tu caso.
+  3. **Ejecutar el filtrado**: Corre `filtro.py` para cargar los datos, filtrar clientes y propiedades, registrar nuevos IDs y limpiar los datos.
+  4. **Corrección y normalización**: El script aplicará funciones de `estados.py`, `limpieza.py` y `transformaciones.py` para asegurar que los datos sean consistentes y legibles.
+  5. **Exportar resultados**: Utiliza `exporta.py` (llamado desde `filtro.py`) para guardar los resultados en archivos Excel listos para análisis o reporte.
 
+  ## Ejemplo de ejecución
 
+  ```powershell
+  # Procesar y exportar datos completos
+  python filtro.py
+  ```
 
-## Licencia
+  ## Requisitos
 
-Este proyecto se distribuye bajo la licencia MIT.
+  - Python 3.10 o superior
+  - Paquetes recomendados: pandas, openpyxl (instalar con `pip install pandas openpyxl`)
 
----
+  ## Detalles adicionales
 
-## Autor
+  - Todos los scripts están diseñados para ejecutarse de forma independiente o en secuencia, pero se recomienda usar `filtro.py` como punto de entrada principal.
+  - Los archivos de IDs permiten detectar y registrar nuevos clientes y propiedades automáticamente, facilitando el control de cambios entre ejecuciones.
+  - El sistema de logs en `utils_filtrado.py` ayuda a auditar el procesamiento y detectar incidencias o registros nuevos.
+  - Puedes adaptar los scripts y configuraciones a tus propios criterios de filtrado, limpieza o exportación según las necesidades del negocio.
+  - Si tienes dudas sobre la función de algún archivo, revisa los comentarios en el código fuente o consulta esta documentación.
 
-Desarrollado por Sistemas Arquimo para la gestión profesional
+  ---
+
+  **Autor:** Sistemas Arquimo  
+  **Fecha de última actualización:** 11 de agosto de 2025
