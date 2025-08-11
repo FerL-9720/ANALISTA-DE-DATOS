@@ -9,12 +9,11 @@ Este proyecto contiene scripts y notebooks para la **limpieza, normalización y 
 ```
 THRON/
 │
-├── filter.py           # Script principal: ejecuta la limpieza y exportación de datos
+├── filtro.py           # Script principal: ejecuta la limpieza y exportación de datos
 ├── config.py           # Diccionarios y listas de estados, municipios y variantes
 ├── limpieza.py         # Funciones para normalizar y limpiar texto
 ├── estados.py          # Funciones para filtrar/corregir estados y detectar variantes
 ├── exporta.py          # Funciones para exportar DataFrames a Excel
-├── CLEANING.ipynb      # Jupyter Notebook para exploración y análisis interactivo
 └── README.md           # Documentación del proyecto
 ```
 
