@@ -87,12 +87,6 @@ Esto te permite identificar rápidamente qué registros requieren revisión manu
 - pandas
 - unicodedata (incluido en la librería estándar)
 
-Instala dependencias con:
-
-```bash
-
----
-
 
 
 ## Licencia
