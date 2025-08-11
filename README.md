@@ -1,7 +1,7 @@
 # ANALISTA-DE-DATOS
 Paso a paso de como llevar el proceso de análisis de datos hasta la creación de un Chat-GPT con la información ya limpia.
 
-# THRON Data Cleaning & Normalization
+# Data Cleaning & Normalization
 
 Este proyecto contiene scripts y notebooks para la **limpieza, normalización y exportación profesional de datos** de clientes y propiedades inmobiliarias. Está diseñado para asegurar la calidad, consistencia y utilidad de la información en bases de datos, facilitando su uso en procesos administrativos, comerciales y legales.
 
