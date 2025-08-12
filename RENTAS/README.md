@@ -64,3 +64,49 @@ Los campos como `id_cliente`, `id_propiedad`, o `id_renta` son **puentes** entre
 -- Ejemplo de relación en SQL
 SELECT * FROM rentas 
 WHERE id_cliente = X; -- Todas las rentas de un cliente
+```
+
+# 🛠️ Guía Detallada: ETL para Data Warehouse + Chatbot de Rentas
+
+## **📌 Objetivo**
+Transformar la base de datos operacional de rentas (PDF proporcionado) en un Data Warehouse (DW) limpio y estructurado, para alimentar un chatbot analítico con capacidades como:
+- Consultar rentas por cliente.
+- Reportar pagos pendientes.
+- Analizar consumo fotovoltaico.
+
+---
+
+## **🔧 Paso 1: Extracción (Extract)**
+### **Fuentes de Datos Clave**
+```python
+# Ejemplo en Python (Pseudocódigo)
+fuentes = {
+    "rentas": "SELECT id_rentas, id_cliente, propiedad_id, fecha_inicio FROM rentas",
+    "clientes": "SELECT id_cliente, nombre, tipo_cliente FROM clientes",
+    "facturas": "SELECT folio, id_renta, monto FROM rentasFacturacionFacturas",
+    "fotovoltaico": "SELECT id_renta_fotovolt, id_cliente, consumo_kWh FROM fotovoltaico_lecturas_pdbt"
+}
+```
+```mermaid
+erDiagram
+    DIM_CLIENTES ||--o{ FACT_RENTAS : "1:N"
+    DIM_PROPIEDADES ||--o{ FACT_RENTAS : "1:N"
+    DIM_TIEMPO ||--o{ FACT_RENTAS : "1:N"
+    FACT_RENTAS ||--o{ FACT_FOTOVOLTAICO : "1:1"
+```
+
+```python
+import pandas as pd
+
+def limpiar_rentas(df):
+    # Eliminar duplicados
+    df = df.drop_duplicates(subset='id_rentas')
+    
+    # Normalizar tipos de cliente
+    df['tipo_cliente'] = df['tipo_cliente'].map({'Físico': 1, 'Moral': 0}).fillna(-1)
+    
+    # Filtrar fechas absurdas
+    df = df[df['fecha_inicio'] > pd.to_datetime('2000-01-01')]
+    
+    return df
+```
