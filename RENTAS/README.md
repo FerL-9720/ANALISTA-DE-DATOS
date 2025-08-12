@@ -35,7 +35,7 @@ erDiagram
     rentasFacturacionFacturas }|--|| rentascargo : "referencia"
 ```
 
-# 🧠 Análisis Exhaustivo del Concentrado de Rentas: Guía para Entender la Base de Datos
+# 🧠 Guía para Entender la Base de Datos
 
 ## **🔎 Introducción al Concentrado**
 El archivo PDF muestra la estructura de una base de datos para un sistema de rentas inmobiliarias con módulos adicionales (como energía fotovoltaica). A primera vista parece un listado de tablas y campos, pero en realidad es un **mapa de relaciones complejas**. Vamos a descifrarlo capa por capa.
