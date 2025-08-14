@@ -174,19 +174,23 @@ int id_nota
 
 ### 4. Flujo de negocio extremo a extremo
 ```mermaid
-flowchart LR
-  A[Contrato RENTA] --> B[Genera CARGOS]
-  B --> C[FACTURA + UUID]
-  C --> D[PAGO]
-  D --> E[COMPLEMENTO de pago]
-  C --> F[NOTA (ajuste)]
-  
-  A2[Contrato FV] --> B2[LECTURAS FV]
-  B2 --> C2[CARGOS FV]
-  C2 --> D2[FACTURA FV + UUID]
-  D2 --> E2[PAGO FV]
-  E2 --> F2[COMPLEMENTO FV]
-  D2 --> G2[NOTA CRÉDITO FV]
+flowchart TB
+  subgraph RENTA
+    A[Contrato] --> B[CARGOS]
+    B --> C[FACTURA]
+    C --> D[PAGO]
+    D --> E[COMPLEMENTO]
+    C --> F[NOTA]
+  end
+
+  subgraph FV
+    A2[Contrato FV] --> B2[LECTURAS]
+    B2 --> C2[CARGOS]
+    C2 --> D2[FACTURA]
+    D2 --> E2[PAGO]
+    E2 --> F2[COMPLEMENTO]
+    D2 --> G2[NOTA]
+  end
 ```
 
 ### 5. Checklist de estudio y calidad de datos
@@ -510,9 +514,3 @@ schtasks /Create /SC DAILY /ST 15:00 /TN "ETL-Rentas-15" /TR "cmd /c cd C:\ruta\
 README.md (este archivo)
 ```
 
-### B. Scripts ejemplo (T-SQL y Python)
-Incluye en `/sql` los DDLs mostrados y procedimientos `usp_*` para **resolver SKs**, ejecutar **MERGE** y poblar hechos. En `/etl/pipeline.py` ajusta **URL de origen/destino** y los nombres de **tablas** y **llaves** según el modelo real.
-
----
-
-**Fin.**
